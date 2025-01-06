@@ -25,7 +25,7 @@ namespace HotelManagement.Services
                 ?? throw new ArgumentException($"Hotel {hotelId} not found");
 
 
-            var totalRooms = hotel.Rooms.Where(r => r.RoomType == roomType).Count();
+            var totalRooms = hotel.Rooms.Where(r => string.Equals(r.RoomType, roomType, StringComparison.OrdinalIgnoreCase)).Count();
             if (totalRooms == 0) return 0;
 
             var bookings = await bookingRepository.GetBookingsInDateRangeAndRoomTypeAsync(
@@ -34,7 +34,7 @@ namespace HotelManagement.Services
                 startDate,
                 endDate);
 
-            var bookedRooms = bookings.Where(b => b.RoomType == roomType && b.Arrival <= endDate && b.Departure > startDate).Count();
+            var bookedRooms = bookings.Where(b => string.Equals(b.RoomType, roomType, StringComparison.OrdinalIgnoreCase) && b.Arrival <= endDate && b.Departure > startDate).Count();
 
             return totalRooms - bookedRooms;
         }

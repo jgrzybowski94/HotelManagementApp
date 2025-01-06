@@ -9,7 +9,7 @@ namespace HotelManagement.Repositories
         public async Task<IEnumerable<Booking>> GetBookingsInDateRangeAndRoomTypeAsync(string hotelId, string roomType, DateTime startDate, DateTime endDate)
         {
             var bookings = await GetBookingsForHotelAsync(hotelId);
-            return bookings.Where(b => b.Arrival <= endDate && b.Departure > startDate && b.RoomType == roomType);
+            return bookings.Where(b => b.Arrival <= endDate && b.Departure > startDate && string.Equals(b.RoomType, roomType, StringComparison.OrdinalIgnoreCase));
         }
 
         private async Task<IEnumerable<Booking>> GetBookingsAsync()

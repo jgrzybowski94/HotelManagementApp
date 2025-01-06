@@ -9,7 +9,7 @@ namespace HotelManagement.Repositories
         public async Task<Hotel?> GetHotelAsync(string hotelId)
         {
             var hotels = await GetHotelsAsync();
-            return hotels.FirstOrDefault(h => h.Id == hotelId);
+            return hotels.FirstOrDefault(h => string.Equals(h.Id, hotelId, StringComparison.OrdinalIgnoreCase));
         }
 
         private async Task<IEnumerable<Hotel>> GetHotelsAsync()
