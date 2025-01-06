@@ -34,7 +34,7 @@ namespace HotelManagement.Services
                 startDate,
                 endDate);
 
-            var bookedRooms = bookings.Where(b => string.Equals(b.RoomType, roomType, StringComparison.OrdinalIgnoreCase) && b.Arrival <= endDate && b.Departure > startDate).Count();
+            var bookedRooms = bookings.Count();
 
             return totalRooms - bookedRooms;
         }
